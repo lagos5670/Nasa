@@ -18,15 +18,24 @@ def get_commet_data(api_key):
         #Absolute magnitud 
         print(f'Absolute magnitud: {data['absolute_magnitude_h']}')
         #Estimate diameter max (KM)
-        print(f'Diameter max: {data['kilometers','estimated_diameter_max']}')
+        print(f'Diameter max: {data['estimated_diameter']['kilometers']['estimated_diameter_max']}')
         #Estimate diameter min (KM)
-        print(f'Diameter min: {data['kilometers','estimated_diameter_max']}')
+        print(f'Diameter min: {data['estimated_diameter']['kilometers']['estimated_diameter_min']}')
         #Estimate diameter max (FT)
-        print(f'Diameter max: {data['kilometers','estimated_diameter_max']}')
+        print(f'Diameter max: {data['estimated_diameter']['feet']['estimated_diameter_max']}')
         #Estimate diameter min (FT)
+        print(f'Diameter min: {data['estimated_diameter']['feet']['estimated_diameter_min']}')
         #obital_data
-            #last_observation_date 
-
+        for approach in data['close_approach_data']:
+            date = approach["close_approach_date"]
+            velocity_km_per_sec = approach["relative_velocity"]["kilometers_per_second"]
+            miss_distance_km = approach["miss_distance"]["kilometers"]
+            orbiting_body = approach["orbiting_body"]
+            print("\nFecha de aproximación cercana:", date)
+            print("Velocidad relativa (km/s):", velocity_km_per_sec)
+            print("Distancia de fallo (km):", miss_distance_km)
+            print("Cuerpo en órbita:", orbiting_body)
+            
     except requests.exceptions.RequestException as e:
         print(f"Api error {e}") #==> print("API error",e)
     
